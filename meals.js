@@ -49,11 +49,10 @@ function changeWeek(direction) {
     }
 }
 
-// 식단 데이터 렌더링 함수만 수정된 버전입니다.
 function renderWeeklyCalendar() {
     const container = document.getElementById('weekly-calendar');
     const title = document.getElementById('week-title');
-    if(!container || !title) return;
+    if(!container) return;
 
     const sunday = new Date(currentBaseDate);
     sunday.setDate(currentBaseDate.getDate() - currentBaseDate.getDay());
@@ -67,22 +66,19 @@ function renderWeeklyCalendar() {
         const dateStr = `2026-02-${dayNum.toString().padStart(2, '0')}`;
         const isFeb = date.getMonth() === 1;
         
-        // 메뉴 분리 로직 (쉼표나 슬래시 기준으로 나눔)
-        let mealHtml = '<div class="meal-list">';
+        // 메뉴 분리 로직 (쉼표나 슬래시 기준)
+        let mealHtml = '';
         if (isFeb && mealData[dateStr]) {
             const menuItems = mealData[dateStr].menu.split(/[,/]/);
             menuItems.forEach(item => {
-                if(item.trim()) mealHtml += `<div class="meal-item-line">${item.trim()}</div>`;
+                if(item.trim()) mealHtml += `<span class="meal-item-line">${item.trim()}</span>`;
             });
-        } else {
-            mealHtml += `<div class="meal-item-line" style="color:#ccc">정보 없음</div>`;
         }
-        mealHtml += '</div>';
 
         html += `
             <div class="calendar-day" style="opacity: ${isFeb ? 1 : 0.3}">
-                <div class="day-number">${dayNum}</div>
-                ${mealHtml}
+                <div style="font-weight:bold; margin-bottom:8px;">${dayNum}일</div>
+                <div>${mealHtml || '<span style="color:#ccc">없음</span>'}</div>
             </div>
         `;
     }
