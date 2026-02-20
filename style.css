@@ -172,3 +172,12 @@ body, html {
     margin-top: 20px;
     color: rgba(255,255,255,0.8);
 }
+
+#meal-page,
+#music-page,
+#fan-page {
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+}
