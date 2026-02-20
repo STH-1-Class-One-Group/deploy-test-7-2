@@ -26,6 +26,14 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
+function goToMeal() {
+    document.getElementById("timer-page").classList.remove("active");
+    document.getElementById("meal-page").classList.add("active");
+
+    // 사이드바 보이기
+    document.getElementById("main-sidebar").style.display = "flex";
+}
+
 // 댓글 시스템 + 삭제 기능
 function addComment() {
     const input = document.getElementById('comment-input');
