@@ -4,16 +4,15 @@ function showPage(pageId) {
     if(target) target.classList.add('active');
 
     const sidebar = document.getElementById('main-sidebar');
+    // 타이머 페이지에서는 사이드바 숨김
     if (pageId === 'timer-page') {
         sidebar.style.display = 'none';
-        target.style.display = 'flex'; // 중앙 정렬 위해 flex 사용
     } else {
         sidebar.style.display = 'flex';
-        target.style.display = 'block';
     }
 }
 
-// 카운트다운
+// 카운트다운 로직
 const targetDate = new Date("March 14, 2027 00:00:00").getTime();
 function updateCountdown() {
     const now = new Date().getTime();
@@ -27,7 +26,7 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
-// 댓글 시스템 (삭제 기능 포함)
+// 댓글 시스템 + 삭제 기능
 function addComment() {
     const input = document.getElementById('comment-input');
     if (!input.value.trim()) return;
@@ -39,8 +38,8 @@ function addComment() {
 }
 
 function deleteComment(index) {
-    if(confirm("이 응원을 삭제할까요?")) {
-        const comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
+    if(confirm("이 소중한 응원을 삭제할까요?")) {
+        let comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
         comments.splice(index, 1);
         localStorage.setItem('woozi_comments', JSON.stringify(comments));
         loadComments();
@@ -55,7 +54,7 @@ function loadComments() {
         <div class="comment-item">
             <button class="delete-btn" onclick="deleteComment(${index})">삭제</button>
             <p>${c.text}</p>
-            <small style="color: #999; font-size: 0.75rem;">${c.date}</small>
+            <small style="color:#aaa">${c.date}</small>
         </div>
     `).join('');
 }
