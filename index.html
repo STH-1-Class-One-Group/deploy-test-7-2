@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOOZI DISCHARGE COUNTDOWN</title>
+    <title>WOOZI Countdown : 2027.03.14</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-bg"></div>
 
-    <div class="sidebar">
+    <div id="main-sidebar" class="sidebar" style="display: none;">
         <div class="nav-icon" title="홈/타이머" onclick="showPage('timer-page')"><img src="timer.svg" alt="타이머"></div>
         <div class="nav-icon" title="급식표" onclick="showPage('meal-page')"><img src="뾰풀이.svg" alt="뾰풀이"></div>
         <div class="nav-icon" title="솔로곡" onclick="showPage('music-page')"><img src="우주공장.jpg" alt="우주공장"></div>
@@ -20,14 +20,16 @@
         <section id="timer-page" class="page active" onclick="showPage('meal-page')">
             <div class="timer-label">WOOZI DISCHARGE COUNTDOWN</div>
             <div id="clock" class="countdown-display">00:00:00:00</div>
-            <p class="click-guide">화면을 클릭하면 급식표로 이동합니다</p>
+            <p class="click-guide">Click anywhere to start</p>
         </section>
 
         <section id="meal-page" class="page">
-            <div class="window-header">
-                <h2>🍚 우지 주간 식단표 (2026.02)</h2>
+            <div class="meal-header">
+                <button onclick="changeWeek(-1)" class="nav-btn">◀</button>
+                <h2 id="week-title">🍚 우지 주간 식단표</h2>
+                <button onclick="changeWeek(1)" class="nav-btn">▶</button>
             </div>
-            <div id="calendar-container"></div>
+            <div id="weekly-calendar" class="weekly-grid"></div>
         </section>
 
         <section id="music-page" class="page">
@@ -61,8 +63,9 @@
         <section id="fan-page" class="page">
             <h2>💎 캐럿 소통창</h2>
             <div class="comment-section">
-                <textarea class="comment-input" placeholder="우지에게 응원을 남겨주세요!"></textarea>
-                <button class="submit-btn">등록하기</button>
+                <textarea id="comment-input" class="comment-input" placeholder="우지에게 응원을 남겨주세요!"></textarea>
+                <button onclick="addComment()" class="submit-btn">등록하기</button>
+                <div id="comment-list" class="comment-list"></div>
             </div>
         </section>
     </div>
