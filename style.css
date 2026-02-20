@@ -1,7 +1,7 @@
 :root {
     --rose-quartz: #F7C9CB;
     --serenity: #91A8D2;
-    --glass: rgba(255, 255, 255, 0.6);
+    --glass: rgba(255, 255, 255, 0.7);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,57 +13,69 @@ body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; o
     z-index: -1;
 }
 
-/* 사이드바 아이콘 크기 및 비율 최적화 */
+/* 사이드바 및 아이콘: 뾰풀이만 조정 */
 .sidebar {
     position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-    width: 80px; background: rgba(255, 255, 255, 0.4);
+    width: 70px; background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px); border-radius: 40px; padding: 20px 0;
     display: flex; flex-direction: column; align-items: center; gap: 20px;
     z-index: 100; border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.nav-icon { width: 55px; height: 55px; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
-.nav-icon:hover { transform: scale(1.1); }
+.nav-icon { width: 50px; height: 50px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
 .nav-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 
-/* 뾰풀이 아이콘만 비율에 맞춰 살짝 작게 조정 */
-.nav-icon[title="급식표"] img { width: 85%; height: 85%; }
+/* 뾰풀이만 살짝 작게 (비율 맞춤) */
+.nav-icon[title="급식표"] img { width: 80%; height: 80%; }
 
-/* 페이지 공통 설정 (카운트다운 창 복구) */
+/* [중요] 페이지 중앙 정렬 및 이동 버그 수정 */
 .page {
     display: none !important;
-    width: 90%; height: 85%; max-width: 1000px;
+    width: 85%; height: 80%; max-width: 1000px;
     background: var(--glass); backdrop-filter: blur(20px);
     border-radius: 30px; padding: 40px; 
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    position: absolute; top: 50%; left: 50%; 
-    transform: translate(-50%, -50%);
-    overflow-y: auto;
+    position: absolute; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%); /* 위치 고정 */
 }
-.page.active { display: block !important; animation: fadeIn 0.4s ease-out; }
 
-/* 카운트다운 텍스트 스타일 */
-#timer-page { text-align: center; display: none; flex-direction: column; justify-content: center; align-items: center; }
-.timer-label { font-size: 1.2rem; font-weight: bold; color: #666; letter-spacing: 2px; margin-bottom: 10px; }
-.countdown-display { font-size: 5rem; font-weight: 900; color: #444; }
+.page.active { 
+    display: block !important; 
+    animation: fadeIn 0.3s ease-out; 
+}
 
-/* 유튜브 2열 배치 복구 */
-.music-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-.music-card iframe { width: 100%; height: 200px; border-radius: 15px; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -48%); } /* 살짝 아래에서 위로 */
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
 
-/* 소통창 간격 및 디자인 */
-#fan-page h2 { margin-bottom: 30px; } /* 글자랑 창 사이 간격 벌림 */
-.comment-section { display: flex; flex-direction: column; }
-.comment-input { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(0,0,0,0.05); margin-bottom: 10px; min-height: 120px; font-size: 1rem; }
-.submit-btn { background: var(--serenity); color: white; border: none; padding: 12px 25px; border-radius: 12px; cursor: pointer; align-self: flex-end; font-weight: bold; }
+/* 카운트다운 메인창 복구 */
+#timer-page { text-align: center; }
+#timer-page.active { display: flex !important; flex-direction: column; justify-content: center; align-items: center; }
+.timer-label { font-size: 1.5rem; font-weight: bold; color: #555; margin-bottom: 20px; }
+.countdown-display { font-size: 5rem; font-weight: 900; color: #333; }
 
-/* 댓글 및 삭제 버튼 */
-.comment-item { background: white; padding: 15px; border-radius: 15px; margin-bottom: 10px; position: relative; border-left: 5px solid var(--rose-quartz); }
-.delete-btn { position: absolute; top: 10px; right: 15px; background: #ffefef; color: #ff6b6b; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
+/* 유튜브 2개씩 가로 배치 */
+.music-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    margin-top: 20px; 
+}
+.music-card iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: none; }
 
-/* 식단표 한 줄에 하나씩 */
-.meal-list { list-style: none; margin-top: 8px; }
-.meal-item-line { font-size: 0.85rem; padding: 3px 0; border-bottom: 1px dotted #eee; }
+/* 소통창 제목과 간격 확보 */
+#fan-page h2 { margin-bottom: 40px; color: #444; }
+.comment-input { width: 100%; padding: 20px; border-radius: 15px; border: none; margin-bottom: 15px; min-height: 120px; font-size: 1rem; }
+.submit-btn { background: var(--serenity); color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; align-self: flex-end; font-weight: bold; }
+
+/* 댓글 및 삭제 버튼 스타일 */
+.comment-item { background: white; padding: 15px; border-radius: 15px; margin-bottom: 12px; position: relative; border-left: 6px solid var(--rose-quartz); }
+.delete-btn { position: absolute; top: 10px; right: 15px; background: #ffebeb; color: #ff6b6b; border: none; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; }
+
+/* 식단표 스타일 */
+.weekly-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.calendar-day { background: white; border-radius: 15px; padding: 10px; min-height: 160px; font-size: 0.85rem; }
+.meal-item-line { display: block; padding: 4px 0; border-bottom: 1px solid #f0f0f0; line-height: 1.3; }
 .meal-item-line:last-child { border-bottom: none; }
-
-@keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -48%); } to { opacity: 1; transform: translate(-50%, -50%); } }
