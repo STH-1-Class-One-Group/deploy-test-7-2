@@ -46,8 +46,8 @@ body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; o
     display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;
 }
 #timer-page.active { display: flex !important; }
-.timer-label { font-size: 1.5rem; font-weight: bold; color: #555; margin-bottom: 20px; }
-.countdown-display { font-size: 5.5rem; font-weight: 900; color: #333; }
+.timer-label { font-size: 1.5rem; font-weight: bold; color: #ffffff; margin-bottom: 20px; }
+.countdown-display { font-size: 5.5rem; font-weight: 900; color: #ffffff; }
 
 /* 페이지 활성화 */
 .page.active:not(#timer-page) { display: block !important; animation: fadeIn 0.3s ease-out; }
@@ -69,3 +69,29 @@ body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; o
 .meal-line { font-size: 0.85rem; padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,0.03); }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 타이머 페이지: 클릭 가능하게 커서 변경 및 전체 영역 확보 */
+#timer-page {
+    width: 100%;
+    height: 100vh;
+    cursor: pointer; /* 마우스 올리면 클릭 가능함 표시 */
+    z-index: 10;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.click-guide {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}

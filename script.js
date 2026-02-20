@@ -1,39 +1,49 @@
+// 1. 페이지 전환 함수 (기본)
 function showPage(pageId) {
-    // 모든 페이지 끄기
-    document.querySelectorAll('.page').forEach(p => {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => {
         p.classList.remove('active');
-        p.style.display = 'none';
+        // 타이머 페이지 외에는 display none으로 확실히 숨김
+        if (p.id !== 'timer-page') p.style.display = 'none';
     });
 
     const target = document.getElementById(pageId);
     if (!target) return;
 
     target.classList.add('active');
-    
-    // 사이드바 제어 및 디스플레이 방식 분기
+
     const sidebar = document.getElementById('main-sidebar');
     if (pageId === 'timer-page') {
         sidebar.style.display = 'none';
-        target.style.display = 'flex'; // 타이머만 중앙 정렬 flex
+        target.style.display = 'flex'; // 타이머는 flex 유지
     } else {
         sidebar.style.display = 'flex';
-        target.style.display = 'block'; // 나머지는 일반 박스
+        target.style.display = 'block'; // 일반 페이지는 block
     }
 }
 
-// [삭제 기능 포함] 댓글 시스템
-function addComment() {
-    const input = document.getElementById('comment-input');
-    if (!input.value.trim()) return;
-    const comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
-    comments.unshift({ text: input.value, date: new Date().toLocaleString() });
-    localStorage.setItem('woozi_comments', JSON.stringify(comments));
-    input.value = '';
-    loadComments();
+// [복구] 카운트다운 화면 어디든 클릭하면 이동하는 함수
+function goToMeal() {
+    showPage('meal-page');
 }
 
+// 2. 카운트다운 로직 (생략 없이 유지)
+const targetDate = new Date("March 14, 2027 00:00:00").getTime();
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
+    const clockEl = document.getElementById("clock");
+    if(clockEl) clockEl.innerHTML = `${d}d ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+setInterval(updateCountdown, 1000);
+
+// 3. 댓글 삭제 기능 (유지)
 function deleteComment(index) {
-    if(confirm("이 응원을 삭제하시겠습니까?")) {
+    if(confirm("이 응원을 삭제할까요?")) {
         let comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
         comments.splice(index, 1);
         localStorage.setItem('woozi_comments', JSON.stringify(comments));
@@ -53,18 +63,4 @@ function loadComments() {
         </div>
     `).join('');
 }
-
-// 초기화
-const targetDate = new Date("March 14, 2027 00:00:00").getTime();
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((distance % (1000 * 60)) / 1000);
-    const clockEl = document.getElementById("clock");
-    if(clockEl) clockEl.innerHTML = `${d}d ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-}
-setInterval(updateCountdown, 1000);
 window.onload = loadComments;
