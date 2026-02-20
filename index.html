@@ -7,60 +7,70 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="main-bg"></div>
 
     <div id="main-sidebar" class="sidebar" style="display: none;">
-        <div class="nav-icon" title="홈/타이머" onclick="showPage('timer-page')"><img src="timer.svg" alt="타이머"></div>
-        <div class="nav-icon" title="급식표" onclick="showPage('meal-page')"><img src="뾰풀이.svg" alt="뾰풀이"></div>
-        <div class="nav-icon" title="솔로곡" onclick="showPage('music-page')"><img src="우주공장.jpg" alt="우주공장"></div>
-        <div class="nav-icon" title="팬소통" onclick="showPage('fan-page')"><img src="봉봉이.svg" alt="봉봉이"></div>
+        <div class="nav-icon" onclick="showPage('timer-page')"><img src="timer.svg"></div>
+        <div class="nav-icon" onclick="showPage('meal-page')"><img src="뾰풀이.svg"></div>
+        <div class="nav-icon" onclick="showPage('music-page')"><img src="우주공장.jpg"></div>
+        <div class="nav-icon" onclick="showPage('fan-page')"><img src="봉봉이.svg"></div>
     </div>
 
     <div class="container">
-        <section id="timer-page" class="page active" onclick="showPage('meal-page')">
+
+        <!-- TIMER -->
+        <section id="timer-page" class="page active">
             <div class="timer-label">WOOZI DISCHARGE COUNTDOWN</div>
             <div id="clock" class="countdown-display">00:00:00:00</div>
             <p class="click-guide">Click anywhere to start</p>
         </section>
 
+        <!-- MEAL -->
         <section id="meal-page" class="page">
             <div class="meal-header">
                 <button onclick="changeWeek(-1)" class="nav-btn">◀</button>
-                <h2 id="week-title">🍚 우지 주간 식단표</h2>
+                <h2 id="week-title">2026년 2월 식단표</h2>
                 <button onclick="changeWeek(1)" class="nav-btn">▶</button>
             </div>
             <div id="weekly-calendar" class="weekly-grid"></div>
         </section>
 
-        <section id="music-page" class="page">
-    <h2>🎸 우주공장 (Solo Songs)</h2>
-    <div class="music-grid">
-        <div class="music-card">
-            <iframe src="https://www.youtube.com/embed/3vSlfwzpTf4?si=7q_0V5pJ-2eylIeW" title="어떤 미래" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="music-title">어떤 미래</div>
-        </div>
-        <div class="music-card">
-            <iframe src="https://www.youtube.com/embed/oV_2853N4n4?si=tuATDDdcf35SEj_P" title="Ruby" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="music-title">Ruby</div>
-        </div>
-        <div class="music-card">
-            <iframe src="https://www.youtube.com/embed/NpVaGtQUNqU?si=ogodYW2UmHRch2iC" title="운명" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="music-title">운명</div>
-        </div>
-        <div class="music-card">
-            <iframe src="https://www.youtube.com/embed/mS-_ZVQ_XW0?si=FPDCuAtXTg4cD8I6" title="simple" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="music-title">simple</div>
-        </div>
-        <div class="music-card">
-            <iframe src="https://www.youtube.com/embed/CgZCCorcF_U?si=uDTS7ueSB1TULfNv" title="Miracle" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="music-title">Miracle</div>
-        </div>
-    </div>
-</section>
+        <!-- MUSIC -->
+        <section id="music-page" class="page scroll-page">
+            <h2>🎸 우주공장 (Solo Songs)</h2>
+            <div class="music-grid">
+
+                <div class="music-card">
+                    <iframe src="https://www.youtube.com/embed/3vSlfwzpTf4" allowfullscreen></iframe>
+                    <div class="music-title">어떤 미래</div>
                 </div>
+
+                <div class="music-card">
+                    <iframe src="https://www.youtube.com/embed/oV_2853N4n4" allowfullscreen></iframe>
+                    <div class="music-title">Ruby</div>
+                </div>
+
+                <div class="music-card">
+                    <iframe src="https://www.youtube.com/embed/NpVaGtQUNqU" allowfullscreen></iframe>
+                    <div class="music-title">운명</div>
+                </div>
+
+                <div class="music-card">
+                    <iframe src="https://www.youtube.com/embed/mS-_ZVQ_XW0" allowfullscreen></iframe>
+                    <div class="music-title">Simple</div>
+                </div>
+
+                <div class="music-card">
+                    <iframe src="https://www.youtube.com/embed/CgZCCorcF_U" allowfullscreen></iframe>
+                    <div class="music-title">Miracle</div>
+                </div>
+
+            </div>
         </section>
 
-        <section id="fan-page" class="page">
+        <!-- FAN -->
+        <section id="fan-page" class="page scroll-page">
             <h2>💎 캐럿 소통창</h2>
             <div class="comment-section">
                 <textarea id="comment-input" class="comment-input" placeholder="우지에게 응원을 남겨주세요!"></textarea>
@@ -68,6 +78,7 @@
                 <div id="comment-list" class="comment-list"></div>
             </div>
         </section>
+
     </div>
 
     <script src="script.js"></script>
