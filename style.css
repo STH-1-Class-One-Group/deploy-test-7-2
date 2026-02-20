@@ -7,130 +7,67 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; overflow: hidden; }
 
-/* 배경 그라데이션 */
-.main-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(135deg, var(--rose-quartz) 0%, var(--serenity) 100%);
-    z-index: -1;
-}
-
-/* 사이드바 */
-.sidebar {
-    position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-    width: 70px; background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-radius: 40px; padding: 20px 0;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
-    z-index: 100; border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.nav-icon { width: 50px; height: 50px; cursor: pointer; transition: 0.2s; }
-.nav-icon:hover { transform: scale(1.1); }
-.nav-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-
-/* 컨텐츠 공통 */
-.container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-.page {
-    display: none; width: 90%; height: 85%; max-width: 1100px;
-    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    overflow-y: auto; border: 1px solid rgba(255,255,255,0.4);
-}
-.page.active { display: block; animation: fadeIn 0.5s; }
-#timer-page.active { display: flex; flex-direction: column; justify-content: center; align-items: center; background: transparent; box-shadow: none; border: none; }
-
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* 타이머 */
-.countdown-display { font-size: 5rem; font-weight: 900; color: white; text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-.click-guide { color: white; margin-top: 20px; opacity: 0.8; font-size: 1.1rem; }
-
-/* 식단표 달력 디자인 */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-.calendar-day {
-    background: white; border-radius: 15px; padding: 10px; min-height: 120px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s;
-}
-.calendar-day:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-.day-number { font-weight: bold; margin-bottom: 5px; color: #777; font-size: 0.9rem; }
-.meal-content { font-size: 0.75rem; line-height: 1.4; color: #444; }
-.meal-item { margin-bottom: 4px; border-left: 3px solid var(--serenity); padding-left: 5px; }
-.sun { color: #ff6b6b; }
-.sat { color: #4d96ff; }
-
-/* 사이드바 숨김 제어 */
-.sidebar {
-    position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-    width: 70px; background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px); border-radius: 40px; padding: 20px 0;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
-    z-index: 100; border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* 주간 식단표 헤더 및 버튼 */
-.meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.nav-btn { background: var(--serenity); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; }
-.weekly-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
-
-/* 댓글창 스타일 */
-.submit-btn { background: var(--serenity); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; margin-top: 10px; }
-.comment-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-
-:root {
-    --rose-quartz: #F7C9CB;
-    --serenity: #91A8D2;
-    --glass: rgba(255, 255, 255, 0.6);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; overflow: hidden; }
-
 .main-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(135deg, var(--rose-quartz) 0%, var(--serenity) 100%);
     z-index: -1;
 }
 
-/* 사이드바 */
+/* 사이드바 아이콘 크기 균형 조정 */
 .sidebar {
     position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
     width: 70px; background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px); border-radius: 40px; padding: 20px 0;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    backdrop-filter: blur(10px); border-radius: 40px; padding: 15px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 15px;
     z-index: 100; border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.nav-icon { width: 50px; height: 50px; cursor: pointer; transition: 0.2s; }
+.nav-icon { 
+    width: 50px; height: 50px; cursor: pointer; transition: 0.2s; 
+    padding: 8px; /* 뾰풀이 아이콘이 너무 커 보이지 않게 내부 여백 추가 */
+    display: flex; justify-content: center; align-items: center;
+}
+.nav-icon:hover { transform: scale(1.1); }
 .nav-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 
-/* 페이지 관리: 겹침 방지 핵심 */
+/* [중요] 창 이동 버그 및 겹침 방지 설정 */
 .page {
-    display: none !important; /* 기본적으로 모든 페이지는 절대 안 보임 */
-    width: 90%; height: 85%; max-width: 1100px;
+    display: none !important; /* 기본적으로 절대 안 보임 */
+    width: 90%; height: 85%; max-width: 1000px;
     background: var(--glass); backdrop-filter: blur(20px);
-    border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    overflow-y: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    border-radius: 30px; padding: 30px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    position: absolute; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%); /* 처음부터 정중앙 고정 */
+    overflow-y: auto;
 }
 
-/* 활성화된 페이지만 보임 */
-.page.active { display: block !important; }
+.page.active { 
+    display: block !important; 
+    animation: fadeInCenter 0.4s ease-out forwards; 
+}
 
-/* 타이머 페이지는 중앙 정렬을 위해 flex 사용 */
+/* 애니메이션 시에도 중앙 좌표(-50%, -50%)를 유지하도록 수정 */
+@keyframes fadeInCenter {
+    from { opacity: 0; transform: translate(-50%, -48%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
 #timer-page.active { 
     display: flex !important; flex-direction: column; justify-content: center; align-items: center; 
     background: transparent; box-shadow: none; backdrop-filter: none;
 }
 
-.countdown-display { font-size: 5rem; font-weight: 900; color: white; text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+/* 소통창 디자인 복구 */
+.comment-section { display: flex; flex-direction: column; height: 100%; }
+.comment-input { width: 100%; padding: 15px; border-radius: 15px; border: none; margin-bottom: 10px; min-height: 100px; font-size: 1rem; }
+.submit-btn { background: var(--serenity); color: white; border: none; padding: 12px 25px; border-radius: 12px; cursor: pointer; align-self: flex-end; font-weight: bold; }
+.comment-list { margin-top: 20px; flex-grow: 1; overflow-y: auto; }
+.comment-item { background: white; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid var(--rose-quartz); }
+
+/* 식단표 스타일 */
 .meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.nav-btn { background: var(--serenity); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; }
+.nav-btn { background: var(--serenity); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; }
 .weekly-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
-.music-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.music-card iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: none; }
-.comment-item { background: white; padding: 15px; border-radius: 10px; margin-top: 10px; }
+.calendar-day { background: white; border-radius: 15px; padding: 12px; min-height: 150px; }
