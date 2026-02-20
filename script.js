@@ -1,70 +1,62 @@
-// 1. 페이지 전환 함수
 function showPage(pageId) {
-    // 모든 페이지에서 active 클래스 제거
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(p => p.classList.remove('active'));
-
-    // 대상 페이지 활성화
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById(pageId);
-    if(target) {
-        target.classList.add('active');
-    }
+    if(target) target.classList.add('active');
 
-    // 사이드바 제어
     const sidebar = document.getElementById('main-sidebar');
     if (pageId === 'timer-page') {
         sidebar.style.display = 'none';
+        target.style.display = 'flex'; // 중앙 정렬 위해 flex 사용
     } else {
         sidebar.style.display = 'flex';
+        target.style.display = 'block';
     }
 }
 
-// 2. 카운트다운 (2027년 3월 14일 기준)
+// 카운트다운
 const targetDate = new Date("March 14, 2027 00:00:00").getTime();
-
 function updateCountdown() {
     const now = new Date().getTime();
     const distance = targetDate - now;
-
     const d = Math.floor(distance / (1000 * 60 * 60 * 24));
     const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((distance % (1000 * 60)) / 1000);
-
     const clockEl = document.getElementById("clock");
-    if(clockEl) {
-        clockEl.innerHTML = `${d}d ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-    }
+    if(clockEl) clockEl.innerHTML = `${d}d ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
 }
+setInterval(updateCountdown, 1000);
 
-// 3. 댓글 시스템
+// 댓글 시스템 (삭제 기능 포함)
 function addComment() {
     const input = document.getElementById('comment-input');
     if (!input.value.trim()) return;
-
     const comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
     comments.unshift({ text: input.value, date: new Date().toLocaleString() });
     localStorage.setItem('woozi_comments', JSON.stringify(comments));
-    
     input.value = '';
     loadComments();
+}
+
+function deleteComment(index) {
+    if(confirm("이 응원을 삭제할까요?")) {
+        const comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
+        comments.splice(index, 1);
+        localStorage.setItem('woozi_comments', JSON.stringify(comments));
+        loadComments();
+    }
 }
 
 function loadComments() {
     const list = document.getElementById('comment-list');
     if(!list) return;
     const comments = JSON.parse(localStorage.getItem('woozi_comments') || '[]');
-    list.innerHTML = comments.map(c => `
+    list.innerHTML = comments.map((c, index) => `
         <div class="comment-item">
+            <button class="delete-btn" onclick="deleteComment(${index})">삭제</button>
             <p>${c.text}</p>
-            <small style="color:#999">${c.date}</small>
+            <small style="color: #999; font-size: 0.75rem;">${c.date}</small>
         </div>
-    `).join('') || '<p>첫 응원을 남겨보세요!</p>';
+    `).join('');
 }
-
-// 초기 실행
-document.addEventListener('DOMContentLoaded', () => {
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    loadComments();
-});
+window.onload = loadComments;
