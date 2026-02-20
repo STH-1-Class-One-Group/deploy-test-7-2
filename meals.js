@@ -37,22 +37,32 @@ const mealData = {
     "2026-02-28": { menu: "중식: 핫도그&치킨스테이크 / 석식: 쇠고기덮밥" }
 };
 
-let currentBaseDate = new Date(); // 오늘 날짜 기준
+
+let currentBaseDate = new Date("2026-02-20"); // 초기 날짜를 2월로 고정
 
 function changeWeek(direction) {
-    currentBaseDate.setDate(currentBaseDate.getDate() + (direction * 7));
-    renderWeeklyCalendar();
+    let newDate = new Date(currentBaseDate);
+    newDate.setDate(newDate.getDate() + (direction * 7));
+
+    // 2026년 2월(Month index 1)을 벗어나지 못하게 함
+    if (newDate.getFullYear() === 2026 && newDate.getMonth() === 1) {
+        currentBaseDate = newDate;
+        renderWeeklyCalendar();
+    } else {
+        alert("2월 식단표 범위 내에서만 이동 가능합니다!");
+    }
 }
 
 function renderWeeklyCalendar() {
     const container = document.getElementById('weekly-calendar');
     const title = document.getElementById('week-title');
-    
-    // 이번 주의 일요일 찾기
+    if(!container || !title) return;
+
+    // 해당 주의 일요일 찾기
     const sunday = new Date(currentBaseDate);
     sunday.setDate(currentBaseDate.getDate() - currentBaseDate.getDay());
 
-    title.innerText = `${sunday.getMonth() + 1}월 ${Math.ceil(sunday.getDate() / 7)}주차 식단`;
+    title.innerText = `2026년 2월 식단표`;
 
     let html = '';
     const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
@@ -60,18 +70,23 @@ function renderWeeklyCalendar() {
     for (let i = 0; i < 7; i++) {
         const date = new Date(sunday);
         date.setDate(sunday.getDate() + i);
+        
+        // 날짜 포맷팅 (YYYY-MM-DD)
         const dateStr = `2026-02-${date.getDate().toString().padStart(2, '0')}`;
-        const meal = mealData[dateStr] ? mealData[dateStr].menu : "식단 정보 없음";
+        
+        // 2월이 아닌 날짜는 빈칸 처리
+        const isFeb = date.getMonth() === 1;
+        const meal = (isFeb && mealData[dateStr]) ? mealData[dateStr].menu : "식단 정보 없음";
 
         html += `
-            <div class="calendar-day">
-                <div class="day-number">${dayNames[i]} (${date.getDate()})</div>
-                <div class="meal-content">${meal}</div>
+            <div class="calendar-day" style="opacity: ${isFeb ? 1 : 0.3}">
+                <div class="day-number" style="font-weight: bold;">${dayNames[i]} (${isFeb ? date.getDate() : '-'})</div>
+                <div class="meal-content" style="font-size: 0.8rem; margin-top: 5px;">${isFeb ? meal : ''}</div>
             </div>
         `;
     }
     container.innerHTML = html;
 }
 
-// 페이지 로드 시 실행
-window.onload = () => { renderWeeklyCalendar(); };
+// 초기 로드 시 실행
+window.addEventListener('load', renderWeeklyCalendar);
