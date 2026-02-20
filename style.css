@@ -1,0 +1,65 @@
+:root {
+    --rose-quartz: #F7C9CB;
+    --serenity: #91A8D2;
+    --glass: rgba(255, 255, 255, 0.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; overflow: hidden; }
+
+/* 배경 그라데이션 */
+.main-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--rose-quartz) 0%, var(--serenity) 100%);
+    z-index: -1;
+}
+
+/* 사이드바 */
+.sidebar {
+    position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+    width: 70px; background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-radius: 40px; padding: 20px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    z-index: 100; border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav-icon { width: 50px; height: 50px; cursor: pointer; transition: 0.2s; }
+.nav-icon:hover { transform: scale(1.1); }
+.nav-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+/* 컨텐츠 공통 */
+.container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+.page {
+    display: none; width: 90%; height: 85%; max-width: 1100px;
+    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    overflow-y: auto; border: 1px solid rgba(255,255,255,0.4);
+}
+.page.active { display: block; animation: fadeIn 0.5s; }
+#timer-page.active { display: flex; flex-direction: column; justify-content: center; align-items: center; background: transparent; box-shadow: none; border: none; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 타이머 */
+.countdown-display { font-size: 5rem; font-weight: 900; color: white; text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.click-guide { color: white; margin-top: 20px; opacity: 0.8; font-size: 1.1rem; }
+
+/* 식단표 달력 디자인 */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+.calendar-day {
+    background: white; border-radius: 15px; padding: 10px; min-height: 120px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s;
+}
+.calendar-day:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+.day-number { font-weight: bold; margin-bottom: 5px; color: #777; font-size: 0.9rem; }
+.meal-content { font-size: 0.75rem; line-height: 1.4; color: #444; }
+.meal-item { margin-bottom: 4px; border-left: 3px solid var(--serenity); padding-left: 5px; }
+.sun { color: #ff6b6b; }
+.sat { color: #4d96ff; }

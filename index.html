@@ -3,250 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOOZI Countdown : 2027.03.14</title>
-    <style>
-        :root {
-            --rose-quartz: #F7C9CB;
-            --serenity: #91A8D2;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body, html {
-            width: 100%;
-            height: 100%;
-            font-family: 'Pretendard', sans-serif;
-            overflow: hidden;
-            color: #333;
-        }
-
-        /* 융화되는 배경색 (그라데이션) */
-        .main-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--rose-quartz) 0%, var(--serenity) 100%);
-            z-index: -1;
-            transition: all 0.5s ease;
-        }
-
-        /* 사이드바 */
-        .sidebar {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 70px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-icon {
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-        }
-
-        .nav-icon:hover { transform: scale(1.15); }
-        .nav-icon img { width: 100%; height: 100%; object-fit: contain; }
-
-        /* 컨텐츠 영역 */
-        .container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .page {
-            display: none;
-            width: 85%;
-            height: 80%;
-            max-width: 1000px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 1. 타이머 화면 (전체 화면 클릭 가능) */
-        #timer-page {
-            display: flex; /* 초기 상태 */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: transparent;
-            backdrop-filter: none;
-            box-shadow: none;
-            cursor: pointer;
-            width: 100%; height: 100%;
-        }
-
-        .countdown-display {
-            font-size: 6rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            letter-spacing: -2px;
-        }
-
-        .timer-label { font-size: 1.5rem; color: white; margin-bottom: 10px; opacity: 0.9; }
-
-        /* 2. 솔로곡 그리드 */
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .music-card {
-            background: white;
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .music-card iframe {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 10px;
-            border: none;
-        }
-
-        .music-title { margin-top: 10px; font-weight: bold; }
-
-        /* 3. 소통창 (댓글) */
-        .comment-section { display: flex; flex-direction: column; gap: 20px; }
-        .comment-input {
-            width: 100%; padding: 20px; border-radius: 15px; border: none;
-            background: white; font-size: 1rem; outline: none;
-        }
-        .comment-list {
-            flex-grow: 1; background: rgba(255,255,255,0.4); 
-            border-radius: 15px; padding: 20px; min-height: 200px;
-        }
-
-        h2 { margin-bottom: 20px; color: #555; }
-    </style>
+    <title>WOOZI DISCHARGE COUNTDOWN</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="main-bg"></div>
 
     <div class="sidebar">
-        <div class="nav-icon" title="홈/타이머" onclick="showPage('timer-page')"><img src="timer.svg" alt="타이머"></div> <div class="nav-icon" title="급식표" onclick="showPage('meal-page')"><img src="뾰풀이.svg" alt="뾰풀이"></div> <div class="nav-icon" title="솔로곡" onclick="showPage('music-page')"><img src="우주공장.jpg" alt="우주공장"></div> <div class="nav-icon" title="팬소통" onclick="showPage('fan-page')"><img src="봉봉이.svg" alt="봉봉이"></div> </div>
-
-    <div class="container">
-        <div id="timer-page" class="page" onclick="showPage('meal-page')">
-            <div class="timer-label">WOOZI DISCHARGE COUNTDOWN</div>
-            <div id="clock" class="countdown-display">00:00:00:00</div>
-            <p style="color:white; margin-top:30px; opacity:0.7;">Click anywhere to start</p>
-        </div>
-
-        <div id="meal-page" class="page">
-            <h2>🍚 우지 급식표 </h2>
-            <div style="background: white; padding: 40px; border-radius: 20px; text-align: center;">
-                <p style="font-size: 1.2rem; color: #888;">오늘의 식단 데이터를 불러오는 중...</p>
-                </div>
-        </div>
-
-        <div id="music-page" class="page">
-            <h2>🎸 우주공장 </h2>
-            <div class="music-grid">
-                <div class="music-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3vSlfwzpTf4?si=7q_0V5pJ-2eylIeW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="music-title">어떤 미래</div>
-                </div>
-                <div class="music-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/oV_2853N4n4?si=tuATDDdcf35SEj_P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="music-title">Ruby</div>
-                </div>
-                <div class="music-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/NpVaGtQUNqU?si=ogodYW2UmHRch2iC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="music-title">운명</div>
-                </div>
-                <div class="music-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/mS-_ZVQ_XW0?si=FPDCuAtXTg4cD8I6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="music-title">simple</div>
-                </div>
-                <div class="music-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CgZCCorcF_U?si=uDTS7ueSB1TULfNv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="music-title">Miracle</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="fan-page" class="page">
-            <h2>💎 캐럿 소통창 </h2>
-            <div class="comment-section">
-                <textarea class="comment-input" placeholder="우지에게 전하고 싶은 말을 남겨주세요!"></textarea>
-                <button style="padding: 10px; border-radius: 10px; border: none; background: var(--serenity); color: white; cursor: pointer;">등록하기</button>
-                <div class="comment-list">
-                    <p>등록된 응원이 없습니다. 첫 번째 응원을 남겨보세요!</p>
-                </div>
-            </div>
-        </div>
+        <div class="nav-icon" title="홈/타이머" onclick="showPage('timer-page')"><img src="timer.svg" alt="타이머"></div>
+        <div class="nav-icon" title="급식표" onclick="showPage('meal-page')"><img src="뾰풀이.svg" alt="뾰풀이"></div>
+        <div class="nav-icon" title="솔로곡" onclick="showPage('music-page')"><img src="우주공장.jpg" alt="우주공장"></div>
+        <div class="nav-icon" title="팬소통" onclick="showPage('fan-page')"><img src="봉봉이.svg" alt="봉봉이"></div>
     </div>
 
-    <script>
-        // 페이지 전환 로직
-        function showPage(pageId) {
-            // 모든 페이지 숨기기
-            document.querySelectorAll('.page').forEach(page => {
-                page.style.display = 'none';
-            });
-            
-            // 선택한 페이지 보이기
-            const selected = document.getElementById(pageId);
-            if (pageId === 'timer-page') {
-                selected.style.display = 'flex';
-            } else {
-                selected.style.display = 'block';
-            }
-        }
+    <div class="container">
+        <section id="timer-page" class="page active" onclick="showPage('meal-page')">
+            <div class="timer-label">WOOZI DISCHARGE COUNTDOWN</div>
+            <div id="clock" class="countdown-display">00:00:00:00</div>
+            <p class="click-guide">화면을 클릭하면 급식표로 이동합니다</p>
+        </section>
 
-        // 카운트다운 로직 (2027년 3월 14일 기준)
-        const targetDate = new Date("March 14, 2027 00:00:00").getTime();
+        <section id="meal-page" class="page">
+            <div class="window-header">
+                <h2>🍚 우지 주간 식단표 (2026.02)</h2>
+            </div>
+            <div id="calendar-container"></div>
+        </section>
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+        <section id="music-page" class="page">
+    <h2>🎸 우주공장 (Solo Songs)</h2>
+    <div class="music-grid">
+        <div class="music-card">
+            <iframe src="https://www.youtube.com/embed/3vSlfwzpTf4?si=7q_0V5pJ-2eylIeW" title="어떤 미래" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="music-title">어떤 미래</div>
+        </div>
+        <div class="music-card">
+            <iframe src="https://www.youtube.com/embed/oV_2853N4n4?si=tuATDDdcf35SEj_P" title="Ruby" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="music-title">Ruby</div>
+        </div>
+        <div class="music-card">
+            <iframe src="https://www.youtube.com/embed/NpVaGtQUNqU?si=ogodYW2UmHRch2iC" title="운명" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="music-title">운명</div>
+        </div>
+        <div class="music-card">
+            <iframe src="https://www.youtube.com/embed/mS-_ZVQ_XW0?si=FPDCuAtXTg4cD8I6" title="simple" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="music-title">simple</div>
+        </div>
+        <div class="music-card">
+            <iframe src="https://www.youtube.com/embed/CgZCCorcF_U?si=uDTS7ueSB1TULfNv" title="Miracle" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="music-title">Miracle</div>
+        </div>
+    </div>
+</section>
+                </div>
+        </section>
 
-            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
+        <section id="fan-page" class="page">
+            <h2>💎 캐럿 소통창</h2>
+            <div class="comment-section">
+                <textarea class="comment-input" placeholder="우지에게 응원을 남겨주세요!"></textarea>
+                <button class="submit-btn">등록하기</button>
+            </div>
+        </section>
+    </div>
 
-            document.getElementById("clock").innerHTML = 
-                `${d}d ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
+    <script src="script.js"></script>
+    <script src="meals.js"></script>
 </body>
 </html>
