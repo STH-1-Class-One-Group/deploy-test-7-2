@@ -37,34 +37,41 @@ const mealData = {
     "2026-02-28": { menu: "중식: 핫도그&치킨스테이크 / 석식: 쇠고기덮밥" }
 };
 
-function generateCalendar() {
-    const container = document.getElementById('calendar-container');
-    let html = '<div class="calendar-grid">';
-    
-    const weeks = ['일', '월', '화', '수', '목', '금', '토'];
-    weeks.forEach(w => html += `<div style="text-align:center; font-weight:bold; padding:10px; color:#555;">${w}</div>`);
+let currentBaseDate = new Date(); // 오늘 날짜 기준
 
-    for (let i = 1; i <= 28; i++) {
-        const dateStr = `2026-02-${i.toString().padStart(2, '0')}`;
-        const meal = mealData[dateStr] ? mealData[dateStr].menu : "식단 정보가 없습니다.";
-        
-        // 요일 계산 (2026년 2월 1일은 일요일)
-        const dayOfWeek = (i - 1) % 7;
-        let dayClass = '';
-        if (dayOfWeek === 0) dayClass = 'sun';
-        else if (dayOfWeek === 6) dayClass = 'sat';
+function changeWeek(direction) {
+    currentBaseDate.setDate(currentBaseDate.getDate() + (direction * 7));
+    renderWeeklyCalendar();
+}
+
+function renderWeeklyCalendar() {
+    const container = document.getElementById('weekly-calendar');
+    const title = document.getElementById('week-title');
+    
+    // 이번 주의 일요일 찾기
+    const sunday = new Date(currentBaseDate);
+    sunday.setDate(currentBaseDate.getDate() - currentBaseDate.getDay());
+
+    title.innerText = `${sunday.getMonth() + 1}월 ${Math.ceil(sunday.getDate() / 7)}주차 식단`;
+
+    let html = '';
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(sunday);
+        date.setDate(sunday.getDate() + i);
+        const dateStr = `2026-02-${date.getDate().toString().padStart(2, '0')}`;
+        const meal = mealData[dateStr] ? mealData[dateStr].menu : "식단 정보 없음";
 
         html += `
             <div class="calendar-day">
-                <div class="day-number ${dayClass}">${i}</div>
-                <div class="meal-content">
-                    <div class="meal-item">${meal}</div>
-                </div>
+                <div class="day-number">${dayNames[i]} (${date.getDate()})</div>
+                <div class="meal-content">${meal}</div>
             </div>
         `;
     }
-    html += '</div>';
     container.innerHTML = html;
 }
 
-window.onload = generateCalendar;
+// 페이지 로드 시 실행
+window.onload = () => { renderWeeklyCalendar(); };
