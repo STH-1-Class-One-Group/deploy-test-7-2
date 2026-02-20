@@ -49,35 +49,40 @@ function changeWeek(direction) {
     }
 }
 
+// 식단 데이터 렌더링 함수만 수정된 버전입니다.
 function renderWeeklyCalendar() {
     const container = document.getElementById('weekly-calendar');
     const title = document.getElementById('week-title');
     if(!container || !title) return;
 
-    // 해당 주의 일요일 찾기
     const sunday = new Date(currentBaseDate);
     sunday.setDate(currentBaseDate.getDate() - currentBaseDate.getDay());
-
     title.innerText = `2026년 2월 식단표`;
 
     let html = '';
-    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-
     for (let i = 0; i < 7; i++) {
         const date = new Date(sunday);
         date.setDate(sunday.getDate() + i);
-        
-        // 날짜 포맷팅 (YYYY-MM-DD)
-        const dateStr = `2026-02-${date.getDate().toString().padStart(2, '0')}`;
-        
-        // 2월이 아닌 날짜는 빈칸 처리
+        const dayNum = date.getDate();
+        const dateStr = `2026-02-${dayNum.toString().padStart(2, '0')}`;
         const isFeb = date.getMonth() === 1;
-        const meal = (isFeb && mealData[dateStr]) ? mealData[dateStr].menu : "식단 정보 없음";
+        
+        // 메뉴 분리 로직 (쉼표나 슬래시 기준으로 나눔)
+        let mealHtml = '<div class="meal-list">';
+        if (isFeb && mealData[dateStr]) {
+            const menuItems = mealData[dateStr].menu.split(/[,/]/);
+            menuItems.forEach(item => {
+                if(item.trim()) mealHtml += `<div class="meal-item-line">${item.trim()}</div>`;
+            });
+        } else {
+            mealHtml += `<div class="meal-item-line" style="color:#ccc">정보 없음</div>`;
+        }
+        mealHtml += '</div>';
 
         html += `
             <div class="calendar-day" style="opacity: ${isFeb ? 1 : 0.3}">
-                <div class="day-number" style="font-weight: bold;">${dayNames[i]} (${isFeb ? date.getDate() : '-'})</div>
-                <div class="meal-content" style="font-size: 0.8rem; margin-top: 5px;">${isFeb ? meal : ''}</div>
+                <div class="day-number">${dayNum}</div>
+                ${mealHtml}
             </div>
         `;
     }
