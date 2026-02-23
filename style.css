@@ -95,3 +95,32 @@ body, html { width: 100%; height: 100%; font-family: 'Pretendard', sans-serif; o
     50% { opacity: 1; }
     100% { opacity: 0.4; }
 }
+
+/* [1] 식단표 주간 달력처럼 가로로 배치 */
+.weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr) !important; /* 무조건 가로 7칸 */
+    gap: 10px;
+    width: 100%;
+}
+
+/* [2] 노래창 스크롤 활성화 */
+#music-page {
+    overflow-y: auto !important; /* 스크롤이 생기게 함 */
+    max-height: 80vh; /* 화면 높이에 맞춰 제한 */
+}
+
+/* [3] 등록하기 버튼 오른쪽 아래로 (가로값은 유지하고 위치만 이동) */
+.comment-section {
+    display: flex;
+    flex-direction: column;
+}
+.submit-btn {
+    align-self: flex-end; /* 부모 컨테이너 내에서 오른쪽 끝으로 배치 */
+    margin-top: 10px;
+}
+
+/* [4] 카운트다운 잔상 방지용 투명도 설정 */
+#timer-page:not(.active) {
+    display: none !important;
+}
