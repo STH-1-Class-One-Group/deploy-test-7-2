@@ -78,9 +78,10 @@ function renderWeeklyCalendar() {
         }
         mealHtml += '</div>';
 
+        // calendar-day가 가로로 나열되도록 weekly-grid 안에 들어가는 구조여야 합니다.
         html += `
-            <div class="calendar-day" style="opacity: ${isFeb ? 1 : 0.3}">
-                <div style="font-weight:bold; border-bottom: 1px solid #ddd; padding-bottom:5px;">${dayNum}일</div>
+            <div class="calendar-day" style="background: white; border-radius: 15px; padding: 10px; min-height: 200px; opacity: ${isFeb ? 1 : 0.2}">
+                <div style="font-weight:bold; color:var(--serenity); margin-bottom:5px;">${dayNum}일</div>
                 ${mealHtml}
             </div>
         `;
