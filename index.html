@@ -25,13 +25,13 @@
             <div id="clock" class="countdown-display">00:00:00:00</div>
             <p class="click-guide">Click anywhere to start</p>
         </section>
-        
+
         <!-- MEAL -->
         <section id="meal-page" class="page">
-            <div class="meal-header">
-                <button onclick="changeWeek(-1)" class="nav-btn">◀</button>
+            <div class="meal-header" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <button class="arrow-btn" onclick="changeWeek(-1)">〈</button>
                 <h2 id="week-title">2026년 2월 식단표</h2>
-                <button onclick="changeWeek(1)" class="nav-btn">▶</button>
+                <button class="arrow-btn" onclick="changeWeek(1)">〉</button>
             </div>
             <div id="weekly-calendar" class="weekly-grid"></div>
         </section>
