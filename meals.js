@@ -34,7 +34,8 @@ const mealData = {
 };
 
 
-let currentBaseDate = new Date("2026-02-20"); // 초기 날짜를 2월로 고정
+// 기존 고정 날짜 대신 현재 접속 시간(오늘)을 가져옵니다.
+let currentBaseDate = new Date();
 
 function changeWeek(direction) {
     let newDate = new Date(currentBaseDate);
