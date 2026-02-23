@@ -62,4 +62,10 @@ function loadComments() {
         </div>
     `).join('');
 }
-window.onload = loadComments;
+
+// 페이지가 처음 로딩될 때 저장된 댓글을 화면에 뿌려줍니다.
+window.onload = function() {
+    loadComments();
+    // 만약 식단표 렌더링도 필요하다면 여기에 추가
+    if(typeof renderWeeklyCalendar === 'function') renderWeeklyCalendar();
+};
