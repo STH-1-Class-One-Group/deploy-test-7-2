@@ -1,10 +1,9 @@
-// 1. 페이지 전환 함수 (기본)
 function showPage(pageId) {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(p => {
+    // 모든 페이지 요소를 찾아서 active를 빼고 아예 안 보이게(none) 만듭니다.
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(p => {
         p.classList.remove('active');
-        // 타이머 페이지 외에는 display none으로 확실히 숨김
-        if (p.id !== 'timer-page') p.style.display = 'none';
+        p.style.display = 'none'; // [해결] 이 코드가 있어야 배경에서 사라집니다.
     });
 
     const target = document.getElementById(pageId);
@@ -12,21 +11,21 @@ function showPage(pageId) {
 
     target.classList.add('active');
 
+    // 사이드바와 페이지별 출력 방식 설정
     const sidebar = document.getElementById('main-sidebar');
     if (pageId === 'timer-page') {
         sidebar.style.display = 'none';
-        target.style.display = 'flex'; // 타이머는 flex 유지
+        target.style.display = 'flex'; // 타이머만 중앙 정렬 flex
     } else {
         sidebar.style.display = 'flex';
         target.style.display = 'block'; // 일반 페이지는 block
     }
 }
 
-// [복구] 카운트다운 화면 어디든 클릭하면 이동하는 함수
+// 메인 클릭 시 이동 함수 (이미 있으면 유지, 없으면 추가)
 function goToMeal() {
     showPage('meal-page');
 }
-
 // 2. 카운트다운 로직 (생략 없이 유지)
 const targetDate = new Date("March 14, 2027 00:00:00").getTime();
 function updateCountdown() {
